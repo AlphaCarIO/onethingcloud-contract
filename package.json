@@ -1,0 +1,21 @@
+{
+  "name": "onethingcloud-contract",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "web3": "^1.0.0-beta.46",
+    "zeppelin-solidity": "^1.12.0"
+  },
+  "devDependencies": {
+    "bignumber.js": "^8.0.2"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/AlphaCarIO/onethingcloud-contract"
+  },
+  "author": "",
+  "license": "MIT"
+}

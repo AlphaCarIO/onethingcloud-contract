@@ -1,0 +1,28 @@
+#####
+##Makefile for AlphaCar OTC contract
+#####
+
+.PHONY : prepare cc
+.IGNORE : prepare
+
+SOLC_OPT=--pretty-json --abi --bin --optimize --optimize-runs 200
+
+prepare:
+	npm i -g truffle
+	npm i -g truffle-flattener
+	npm i
+
+cc:
+	rm -rf build
+	mkdir -p build
+	truffle compile
+	truffle-flattener contracts/token/AlphaCarToken.sol > build/AlphaCarToken.sol
+
+	solc -o build/AlphaCarToken $(SOLC_OPT) build/AlphaCarToken.sol
+	solc -o build/ACARCrowdsaleMock $(SOLC_OPT) build/ACARCrowdsaleMock.sol
+
+ubuntu_get_geth:
+	sudo apt-get install software-properties-common
+	sudo add-apt-repository -y ppa:ethereum/ethereum
+	sudo apt-get update
+	sudo apt-get install ethereum
