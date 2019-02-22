@@ -15,19 +15,19 @@ contract OrderManager is Ownable {
         string locationDest; // 目标地详情
         uint64 createTime; // 创建时间（UTC时间戳）
         uint64 departureTime; // 出发时间，仅顺风车（UTC时间戳）
-        bool isVaild;
+        bool isValid;
     }
 
     mapping(string => Order) orders;
 
-    constructor() public {
+    constructor(address account) Ownable(account) public {
     }
 
     function createOrder(string memory orderId, uint8 orderType, uint8 orderStatus, 
     uint64 feeTotal, uint16 passengerAmount, uint distance, string memory locationOrigin, string memory locationDest,
     uint64 createTime, uint64 departureTime) public onlyOwner returns(bool) {
 
-        require(!orders[orderId].isVaild);
+        require(!orders[orderId].isValid);
 
         orders[orderId] = Order(orderId, orderType, orderStatus, feeTotal, passengerAmount, distance, 
         locationOrigin, locationDest, createTime, departureTime, true);
@@ -37,7 +37,7 @@ contract OrderManager is Ownable {
 
     function modifyOrder(string memory orderId, uint8 newOrderStatus) public onlyOwner returns(bool) {
 
-        require(orders[orderId].isVaild);
+        require(orders[orderId].isValid);
 
         orders[orderId].orderStatus = newOrderStatus;
         
@@ -46,7 +46,7 @@ contract OrderManager is Ownable {
     }
 
     function getOrderById(string memory orderId) public view returns(uint8, uint8,
-            uint64, uint16, uint, string memory, string memory, uint64, uint64){
+            uint64, uint16, uint, string memory, string memory, uint64, uint64, bool){
         
         Order memory o = orders[orderId];
 
@@ -59,7 +59,8 @@ contract OrderManager is Ownable {
             o.locationOrigin,
             o.locationDest,
             o.createTime,
-            o.departureTime
+            o.departureTime,
+            o.isValid
         );
     }
 

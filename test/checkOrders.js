@@ -19,7 +19,7 @@ let owner
 contract('OrderManager', function (accounts) {
   beforeEach(async () => {
     owner = accounts[0]
-    orderManager = await OrderManager.new({
+    orderManager = await OrderManager.new(owner, {
       from: owner
     })
   })
@@ -33,8 +33,8 @@ contract('OrderManager', function (accounts) {
 
     let result = await orderManager.getOrderById(order1.orderId);
 
-    assert.strictEqual(result[0], order1.orderType, "orderType is wrong!");
-    assert.strictEqual(result[1], order1.orderStatus, "orderStatus is wrong!");
+    assert.strictEqual(result[0].toString(), order1.orderType, "orderType is wrong!");
+    assert.strictEqual(result[1].toString(), order1.orderStatus, "orderStatus is wrong!");
     assert.strictEqual(result[2].toString(), order1.feeTotal, "feeTotal is wrong!");
     assert.strictEqual(result[3].toString(), order1.passengerAmount, "passengerAmount is wrong!");
     assert.strictEqual(result[4].toString(), order1.distance, "distance is wrong!");
@@ -61,7 +61,7 @@ contract('OrderManager', function (accounts) {
 
   it('modify order', async () => {
 
-    const newStatus = 'PAID';
+    const newStatus = '5';
 
     await orderManager.createOrder(order1.orderId, order1.orderType, order1.orderStatus,
       order1.feeTotal, order1.passengerAmount, order1.distance,
@@ -72,8 +72,8 @@ contract('OrderManager', function (accounts) {
 
     let result = await orderManager.getOrderById(order1.orderId);
 
-    assert.strictEqual(result[0], order1.orderType, "orderType is wrong!");
-    assert.strictEqual(result[1], newStatus, "orderStatus is wrong!");
+    assert.strictEqual(result[0].toString(), order1.orderType, "orderType is wrong!");
+    assert.strictEqual(result[1].toString(), newStatus, "orderStatus is wrong!");
     assert.strictEqual(result[2].toString(), order1.feeTotal, "feeTotal is wrong!");
     assert.strictEqual(result[3].toString(), order1.passengerAmount, "passengerAmount is wrong!");
     assert.strictEqual(result[4].toString(), order1.distance, "distance is wrong!");
@@ -86,7 +86,7 @@ contract('OrderManager', function (accounts) {
 
   it('modify non-exist order', async () => {
 
-    const newStatus = 'PAID';
+    const newStatus = '5';
 
     await orderManager.createOrder(order1.orderId, order1.orderType, order1.orderStatus,
       order1.feeTotal, order1.passengerAmount, order1.distance,
@@ -105,8 +105,10 @@ contract('OrderManager', function (accounts) {
 
     result = await orderManager.getOrderById(orders[1].orderId);
 
-    assert.strictEqual(result[0], '', "orderType is wrong!");
-    assert.strictEqual(result[1], '', "orderStatus is wrong!");
+    assert.strictEqual(result[9], false, "order is not valid!");
+
+    assert.strictEqual(result[0].toString(), '0', "orderType is wrong!");
+    assert.strictEqual(result[1].toString(), '0', "orderStatus is wrong!");
     assert.strictEqual(result[2].toString(), '0', "feeTotal is wrong!");
     assert.strictEqual(result[3].toString(), '0', "passengerAmount is wrong!");
     assert.strictEqual(result[4].toString(), '0', "distance is wrong!");
