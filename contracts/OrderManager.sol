@@ -1,16 +1,13 @@
-pragma solidity >=0.4.16 <0.6.0;
+pragma solidity ^0.5.0;
 
-import 'zeppelin-solidity/contracts/math/SafeMath.sol';
-import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import './Ownable.sol';
 
 contract OrderManager is Ownable {
 
-    using SafeMath for uint256;
-
     struct Order {
         string orderId; // 订单编号
-        string orderType; // 订单类型
-        string orderStatus; // 订单状态
+        uint8 orderType; // 订单类型
+        uint8 orderStatus; // 订单状态
         uint64 feeTotal; // 订单总金额
         uint16 passengerAmount; // 乘客数
         uint distance; // 行程距离
@@ -26,7 +23,7 @@ contract OrderManager is Ownable {
     constructor() public {
     }
 
-    function createOrder(string memory orderId, string memory orderType, string memory orderStatus, 
+    function createOrder(string memory orderId, uint8 orderType, uint8 orderStatus, 
     uint64 feeTotal, uint16 passengerAmount, uint distance, string memory locationOrigin, string memory locationDest,
     uint64 createTime, uint64 departureTime) public onlyOwner returns(bool) {
 
@@ -38,7 +35,7 @@ contract OrderManager is Ownable {
         return true;
     }
 
-    function modifyOrder(string memory orderId, string memory newOrderStatus) public onlyOwner returns(bool) {
+    function modifyOrder(string memory orderId, uint8 newOrderStatus) public onlyOwner returns(bool) {
 
         require(orders[orderId].isVaild);
 
@@ -48,7 +45,7 @@ contract OrderManager is Ownable {
 
     }
 
-    function getOrderById(string memory orderId) public view returns(string memory, string memory,
+    function getOrderById(string memory orderId) public view returns(uint8, uint8,
             uint64, uint16, uint, string memory, string memory, uint64, uint64){
         
         Order memory o = orders[orderId];

@@ -3,7 +3,7 @@
 #####
 
 .PHONY : prepare cc
-.IGNORE : prepare
+.IGNORE : prepare cc
 
 SOLC_OPT=--pretty-json --abi --bin --optimize --optimize-runs 200
 
@@ -16,10 +16,9 @@ cc:
 	rm -rf build
 	mkdir -p build
 	truffle compile
-	truffle-flattener contracts/token/AlphaCarToken.sol > build/AlphaCarToken.sol
+	truffle-flattener contracts/OrderManager.sol > build/OrderManager.sol
 
-	solc -o build/AlphaCarToken $(SOLC_OPT) build/AlphaCarToken.sol
-	solc -o build/ACARCrowdsaleMock $(SOLC_OPT) build/ACARCrowdsaleMock.sol
+	#solc -o build/OrderManager $(SOLC_OPT) build/OrderManager.sol
 
 ubuntu_get_geth:
 	sudo apt-get install software-properties-common
