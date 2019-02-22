@@ -18,11 +18,6 @@ contract OrderManager is Ownable {
         string locationDest; // 目标地详情
         uint64 createTime; // 创建时间（UTC时间戳）
         uint64 departureTime; // 出发时间，仅顺风车（UTC时间戳）
-        //uint64 completeTime; // 完成时间（or取消）（UTC时间戳）
-        //uint8 gradePassenger; // 乘客评分（0-5分），仅顺风车（int)
-        //uint8 gradeDriver; // 车主评分（0-5分），仅顺风车（int)
-        //string passengerId; // 乘客ID（脱敏），仅顺风车
-        //string driverId; // 车主ID（脱敏）
         bool isVaild;
     }
 
@@ -35,9 +30,7 @@ contract OrderManager is Ownable {
     uint64 feeTotal, uint16 passengerAmount, uint distance, string memory locationOrigin, string memory locationDest,
     uint64 createTime, uint64 departureTime) public onlyOwner returns(bool) {
 
-        if (orders[orderId].isVaild) {
-            return false;
-        }
+        require(!orders[orderId].isVaild);
 
         orders[orderId] = Order(orderId, orderType, orderStatus, feeTotal, passengerAmount, distance, 
         locationOrigin, locationDest, createTime, departureTime, true);
@@ -47,11 +40,11 @@ contract OrderManager is Ownable {
 
     function modifyOrder(string memory orderId, string memory newOrderStatus) public onlyOwner returns(bool) {
 
-        if (!orders[orderId].isVaild) {
-            return false;
-        }
+        require(orders[orderId].isVaild);
 
         orders[orderId].orderStatus = newOrderStatus;
+        
+        return true;
 
     }
 
