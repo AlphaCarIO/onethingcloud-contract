@@ -18,7 +18,8 @@ cc:
 	truffle compile
 	truffle-flattener contracts/OrderManager.sol > build/OrderManager.sol
 
-	#solc -o build/OrderManager $(SOLC_OPT) build/OrderManager.sol
+	solcjs -o build/OrderManager $(SOLC_OPT) build/OrderManager.sol
+	node tools/gen_deploy_body.js
 
 ubuntu_get_geth:
 	sudo apt-get install software-properties-common

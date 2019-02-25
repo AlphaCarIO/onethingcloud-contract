@@ -64,3 +64,5 @@ build
 .idea
 ScanPage.sol
 *.sample
+deploy.json
+debug.txt
