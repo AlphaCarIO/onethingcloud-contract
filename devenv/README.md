@@ -24,3 +24,9 @@
   &emsp;},  
   &emsp;"msg": ""  
 }
+
+
+#docker cmd
+cd docker
+./gen_img.sh
+docker run -it -p 8080:8080 onethingcloud-wallet-test
