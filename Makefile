@@ -10,6 +10,7 @@ SOLC_OPT=--pretty-json --abi --bin --optimize --optimize-runs 200
 prepare:
 	npm i -g truffle
 	npm i -g truffle-flattener
+	npm i -g solc
 	npm i
 
 cc:
