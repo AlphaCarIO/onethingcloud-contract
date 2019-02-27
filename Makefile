@@ -22,6 +22,9 @@ cc:
 	solcjs -o build/OrderManager $(SOLC_OPT) build/OrderManager.sol
 	OTC_SECRET=$(OTC_SECRET) node tools/gen_deploy_body.js
 
+t:
+	truffle test
+
 ubuntu_get_geth:
 	sudo apt-get install software-properties-common
 	sudo add-apt-repository -y ppa:ethereum/ethereum

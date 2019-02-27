@@ -2,13 +2,18 @@ const BigNumber = require('bignumber.js');
 const OrderManager = artifacts.require('OrderManager');
 const utils = require('./utils');
 
+const Web3 = require('web3');
+let web3 = new Web3();
+
 const fs = require("fs");
 
 let orders = JSON.parse(fs.readFileSync("./test/order_sample_100.json", 'utf-8')).RECORDS
 //console.log(orders);
 let order1 = orders[0];
+order1.orderId = web3.fromAscii(order1.orderId);
 console.log(order1);
 let order2 = orders[1];
+order2.orderId = web3.fromAscii(order2.orderId);
 console.log(order2);
 
 let orderManager

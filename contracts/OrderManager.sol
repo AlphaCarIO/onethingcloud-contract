@@ -5,7 +5,7 @@ import './Ownable.sol';
 contract OrderManager is Ownable {
 
     struct Order {
-        string orderId; // 订单编号
+        bytes32 orderId; // 订单编号
         uint8 orderType; // 订单类型
         uint8 orderStatus; // 订单状态
         uint64 feeTotal; // 订单总金额
@@ -18,12 +18,12 @@ contract OrderManager is Ownable {
         bool isValid; // 标记位，判断数据是否存在
     }
 
-    mapping(string => Order) orders;
+    mapping(bytes32 => Order) orders;
 
     constructor(address account) Ownable(account) public {
     }
 
-    function createOrder(string memory orderId, uint8 orderType, uint8 orderStatus, 
+    function createOrder(bytes32 orderId, uint8 orderType, uint8 orderStatus, 
     uint64 feeTotal, uint16 passengerAmount, uint distance, string memory locationOrigin, string memory locationDest,
     uint64 createTime, uint64 departureTime) public onlyOwner returns(bool) {
 
@@ -35,7 +35,7 @@ contract OrderManager is Ownable {
         return true;
     }
 
-    function modifyOrder(string memory orderId, uint8 newOrderStatus) public onlyOwner returns(bool) {
+    function modifyOrder(bytes32 orderId, uint8 newOrderStatus) public onlyOwner returns(bool) {
 
         require(orders[orderId].isValid);
 
@@ -45,7 +45,7 @@ contract OrderManager is Ownable {
 
     }
 
-    function getOrderById(string memory orderId) public view returns(uint8, uint8,
+    function getOrderById(bytes32 orderId) public view returns(uint8, uint8,
             uint64, uint16, uint, string memory, string memory, uint64, uint64, bool){
         
         Order memory o = orders[orderId];
