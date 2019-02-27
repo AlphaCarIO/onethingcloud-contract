@@ -15,7 +15,7 @@ contract OrderManager is Ownable {
         string locationDest; // 目标地详情
         uint64 createTime; // 创建时间（UTC时间戳）
         uint64 departureTime; // 出发时间，仅顺风车（UTC时间戳）
-        bool isValid;
+        bool isValid; // 标记位，判断数据是否存在
     }
 
     mapping(string => Order) orders;
