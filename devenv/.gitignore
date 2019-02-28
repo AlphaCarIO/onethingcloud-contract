@@ -1,0 +1,9 @@
+*.log
+*.vagrant
+*.tar.gz
+git_log
+get-pip.py
+*.pem
+
+nexus-3.14*
+sonatype-work
