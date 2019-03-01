@@ -18,6 +18,10 @@ if (voca.isBlank(secret)) {
     process.exit();
 }
 
+if (!voca.isBlank(process.env.ADDRESS)) {
+    param_val = process.env.ADDRESS;
+}
+
 if (!voca.isBlank(process.env.EMAIL)) {
     email = process.env.EMAIL;
 }
@@ -37,6 +41,8 @@ if (!voca.isBlank(process.env.PARAM_VAL)) {
 var abiCoder = new ethers.utils.AbiCoder();
 
 let param_bytecode = abiCoder.encode(['address'], [param_val]);
+
+console.log('param_bytecode:', param_bytecode);
 
 let bin_file = fs.readFileSync(bin_file_path, 'utf-8');
 
