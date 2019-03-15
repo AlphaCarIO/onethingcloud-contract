@@ -21,8 +21,7 @@ if [ "prod" == "$FOLDER" ]; then
   kubectl config use-context acar-credit-prod
 else
   echo 'set-context acar-test-env...'
-  #kubectl config use-context acar-test-env
-  kubectl config use-context eos-dapp
+  kubectl config use-context acar-test-env
 fi
 
 cd ./envs/$FOLDER/
