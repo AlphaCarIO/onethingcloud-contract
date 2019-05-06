@@ -1,2 +1,3 @@
-passwd.json
-private_key
+passwd*.json
+private_key*
+
