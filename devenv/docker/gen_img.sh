@@ -8,14 +8,18 @@ if [ -n "$1" ]; then
   FLAG=$1
 fi
 
-if [ "prod" != "$FLAG" ]; then
-  img_name=$img_name-test
+if [ -n "$2" ]; then
+  VER=$2
 fi
+
+#if [ "prod" != "$FLAG" ]; then
+#  img_name=$img_name-test
+#fi
 
 docker rmi $img_name
 
-docker rmi $PREFIX/$img_name:v1
+docker rmi $PREFIX/$img_name:$VER
 
-docker build --no-cache -t $img_name ./server-wallet
+docker build --no-cache -t $img_name ./server-wallet_$VER
 
-docker tag $img_name:latest $PREFIX/$img_name:v1
+docker tag $img_name:latest $PREFIX/$img_name:$VER

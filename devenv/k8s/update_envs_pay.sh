@@ -10,9 +10,15 @@ if [ -n "$1" ]; then
     FOLDER=$1
 fi
 
-if [ xt == x"$2" ]; then
-    TMP_CMD=--insecure-skip-tls-verify=true
+VER=v1
+
+if [ -n "$2" ]; then
+    VER=$2
 fi
+
+#if [ xt == x"$2" ]; then
+#    TMP_CMD=--insecure-skip-tls-verify=true
+#fi
 
 echo '---> NS:'$NS
 
@@ -24,7 +30,11 @@ else
   kubectl config use-context acar-test-env
 fi
 
-cd ./envs/$FOLDER/
+cd ./$VER/envs/$FOLDER/
+
+kubectl $TMP_CMD delete configmap wallet-pay.conf $NS
+kubectl $TMP_CMD create configmap wallet-pay.conf \
+  --from-file=wallet.conf=wallet-pay.conf $NS
 
 kubectl $TMP_CMD delete secret passwd-pay.json $NS
 kubectl $TMP_CMD create secret generic \
