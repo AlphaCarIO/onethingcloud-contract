@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   annotations:
     field.cattle.io/creatorId: ""
-    field.cattle.io/publicEndpoints: '[{"port":31080,"protocol":"TCP","serviceName":"onethingcloud:onethingcloud-wallet-nodeport","allNodes":true}]'
+    field.cattle.io/publicEndpoints: '[{"port":31080,"protocol":"TCP","serviceName":"onethingcloud:thunderchain-wallet-nodeport","allNodes":true}]'
   labels:
-    workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet
-  name: onethingcloud-wallet
+    workload.user.cattle.io/workloadselector: deployment-thunderchain-onethingcloud-wallet
+  name: thunderchain-wallet
   namespace: onethingcloud
 spec:
   progressDeadlineSeconds: 600
@@ -14,7 +14,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet
+      workload.user.cattle.io/workloadselector: deployment-onethingcloud-thunderchain-wallet
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -23,12 +23,12 @@ spec:
   template:
     metadata:
       annotations:
-        field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"onethingcloud-wallet-nodeport","kind":"NodePort","name":"8080tcp310801","protocol":"TCP","sourcePort":31080}]]'
+        field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"thunderchain-wallet-nodeport","kind":"NodePort","name":"8080tcp310801","protocol":"TCP","sourcePort":31080}]]'
       labels:
-        workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet
+        workload.user.cattle.io/workloadselector: deployment-onethingcloud-thunderchain-wallet
     spec:
       containers:
-      - image: nexus.alphacario.com:8089/onethingcloud-wallet:v2
+      - image: nexus.alphacario.com:8089/thunderchain-wallet:v2
         imagePullPolicy: Always
         name: onethingcloud-wallet
         ports:

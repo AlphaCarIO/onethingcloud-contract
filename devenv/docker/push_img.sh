@@ -16,4 +16,8 @@ fi
 #  img_name=$img_name-test
 #fi
 
-docker push $PREFIX/$img_name:$VER
+for module in ${modules[@]}; do
+
+docker push $PREFIX/$module-$img_name:$VER
+
+done

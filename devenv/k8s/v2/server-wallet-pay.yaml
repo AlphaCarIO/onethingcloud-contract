@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   annotations:
     field.cattle.io/creatorId: ""
-    field.cattle.io/publicEndpoints: '[{"port":31081,"protocol":"TCP","serviceName":"onethingcloud:onethingcloud-wallet-pay-nodeport","allNodes":true}]'
+    field.cattle.io/publicEndpoints: '[{"port":31081,"protocol":"TCP","serviceName":"onethingcloud:lianxiangcloud-wallet-nodeport","allNodes":true}]'
   labels:
-    workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet-pay
-  name: onethingcloud-wallet-pay
+    workload.user.cattle.io/workloadselector: deployment-onethingcloud-lianxiangcloud-wallet
+  name: lianxiangcloud-wallet
   namespace: onethingcloud
 spec:
   progressDeadlineSeconds: 600
@@ -14,7 +14,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet-pay
+      workload.user.cattle.io/workloadselector: deployment-onethingcloud-lianxiangcloud-wallet
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -23,14 +23,14 @@ spec:
   template:
     metadata:
       annotations:
-        field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"onethingcloud-wallet-pay-nodeport","kind":"NodePort","name":"8080tcp310811","protocol":"TCP","sourcePort":31081}]]'
+        field.cattle.io/ports: '[[{"containerPort":8080,"dnsName":"lianxiangcloud-wallet-nodeport","kind":"NodePort","name":"8080tcp310811","protocol":"TCP","sourcePort":31081}]]'
       labels:
-        workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet-pay
+        workload.user.cattle.io/workloadselector: deployment-onethingcloud-lianxiangcloud-wallet
     spec:
       containers:
-      - image: nexus.alphacario.com:8089/onethingcloud-wallet:v2
+      - image: nexus.alphacario.com:8089/lianxiangcloud-wallet:v2
         imagePullPolicy: Always
-        name: onethingcloud-wallet-pay
+        name: lianxiangcloud-wallet
         ports:
         - containerPort: 8080
           name: 8080tcp310811

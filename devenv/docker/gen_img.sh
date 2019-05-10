@@ -16,10 +16,20 @@ fi
 #  img_name=$img_name-test
 #fi
 
-docker rmi $img_name
+for module in ${modules[@]}; do
 
-docker rmi $PREFIX/$img_name:$VER
+cd ./server-wallet_$VER/$module
 
-docker build --no-cache -t $img_name ./server-wallet_$VER
+single_img=$module-$img_name
 
-docker tag $img_name:latest $PREFIX/$img_name:$VER
+docker rmi $single_img
+
+docker rmi $PREFIX/$single_img:$VER
+
+docker build --no-cache -t $single_img ./
+
+docker tag $single_img:latest $PREFIX/$single_img:$VER
+
+cd ../..
+
+done
