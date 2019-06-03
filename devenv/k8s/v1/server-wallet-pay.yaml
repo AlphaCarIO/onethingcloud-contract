@@ -28,7 +28,7 @@ spec:
         workload.user.cattle.io/workloadselector: deployment-onethingcloud-onethingcloud-wallet-pay
     spec:
       containers:
-      - image: nexus.alphacario.com:8089/onethingcloud-wallet:v1
+      - image: repo.alphacario.com:8090/onethingcloud-wallet:v1
         imagePullPolicy: Always
         name: onethingcloud-wallet-pay
         ports:
@@ -58,7 +58,7 @@ spec:
           subPath: private_key
       dnsPolicy: ClusterFirst
       imagePullSecrets:
-      - name: nexus-acar
+      - name: nexus
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}

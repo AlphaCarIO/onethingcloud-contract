@@ -1,9 +1,9 @@
 #!/bin/bash
 
 VER=`git rev-parse HEAD`
-PREFIX=nexus.alphacario.com:8089
+PREFIX=repo.alphacario.com:8090
 FLAG=test
-VER=v1
+VER=v2
 img_name=wallet
 
 modules=("lianxiangcloud" "thunderchain")
